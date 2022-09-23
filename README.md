@@ -96,7 +96,7 @@ $ pdoc3 --html nanoreactor_processing -o doc/
 This work:
 1.  A. Stan et al., J. Chem. Theory Comput., in review (2022)
 
-Other references:
+## Other references:
 2. L.-P. Wang et al., Nat. Chem. (2014); https://doi.org/10.1038/nchem.2099
 3. K. Wiberg, Tetrahedron (1968); https://doi.org/10.1016/0040-4020(68)88057-3
 4. G. Landrum, "RDKit: Open-source cheminformatics. https://www.rdkit.org"; https://doi.org/10.5281/zenodo.5085999
