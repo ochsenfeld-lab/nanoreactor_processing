@@ -12,8 +12,8 @@ def read_traj_file(xyz_file: str) -> Tuple[list, list]:
 
     Args:
         xyz_file: path to trajectory file from nanoreactor simulation
-                  Format: 1 time step
-                          2 number of atoms
+                  Format: 1 number of atoms
+                          2 TIME: time step
                           3 elem x y z
                           4 elem x y z
                                 .

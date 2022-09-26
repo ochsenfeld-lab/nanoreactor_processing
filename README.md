@@ -12,7 +12,7 @@ This package implements various tools to automatically post-process and evaluate
 	
 	* stored list of reactions for further refinement
 	
-* 	Visualization tools (plots, molecular grids, PyMol movie (available only directly from GitHub repository))
+* 	Visualization tools (plots, molecular grids, PyMOL movie (available only directly from GitHub repository))
 
 ## Install:
 To install nanoreactor_processing type:
@@ -37,8 +37,8 @@ To use the functions implemented in nanoreactor_processing you should be able to
 Trajectory: .xyz file
 
 Format: <br />
-1   time step <br />
-2   number of atoms <br />
+1   number of atoms <br />
+2   TIME: time step <br />
 3   elem x y z <br />
 4   elem x y z <br />
         . <br />

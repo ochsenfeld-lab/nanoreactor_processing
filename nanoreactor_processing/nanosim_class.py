@@ -12,7 +12,7 @@ RDLogger.DisableLog('rdApp.*')
 from .utils import *
 from .read_write_utils import *
 
-# dictionary for standard experimental bond lengths defined globally to be used in classes and functions
+# dictionary for standard experimental bond lengths (in Angstrom) defined globally to be used in classes and functions
 global __std_bond_lengths__
 __std_bond_lengths__ = {'H': {'H': 0.741, 'C': 1.099, 'N': 1.012, 'O': 0.967, 'S': 1.345},
                         'C': {'H': 1.099, 'C': 1.530, 'N': 1.484, 'O': 1.432, 'S': 1.809},
@@ -28,8 +28,8 @@ class NanoSim:
 
     Args:
         traj_file: trajectory file path
-                   Format: 1 time step
-                           2 number of atoms
+                   Format: 1 number of atoms
+                           2 TIME: time step
                            3 elem x y z
                            4 elem x y z
                                  .
