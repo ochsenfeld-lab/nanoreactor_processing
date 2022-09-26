@@ -215,7 +215,7 @@ class NanoSim:
 
             if length != natoms:
                 print(str(ts) + ": " + str(length))
-            write_frag_file("mols_buffer.dat", timestep, fragments)
+            write_frag_file("mols.dat", timestep, fragments)
 
         return
 

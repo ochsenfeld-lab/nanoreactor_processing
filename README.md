@@ -12,7 +12,7 @@ This package implements various tools to automatically post-process and evaluate
 	
 	* stored list of reactions for further refinement
 	
-* 	Visualization tools (plots, molecular grids, PyMol movie)
+* 	Visualization tools (plots, molecular grids, PyMol movie (available only directly from GitHub repository))
 
 ## Install:
 To install nanoreactor_processing type:
@@ -33,23 +33,27 @@ $ pip install nanoreactor-processing
 
 ## Basic Usage:
 To use the functions implemented in nanoreactor_processing you should be able to generate files with the following format from your MD simulation:
-trajectory: .xyz file
-Format: 
-1   time step
-2   number of atoms
-3   elem x y z
-4   elem x y z
-        .
-        .
 
-bond order file: only the upper triangular matrix needs to be stored
+Trajectory: .xyz file
+
+Format: <br />
+1   time step <br />
+2   number of atoms <br />
+3   elem x y z <br />
+4   elem x y z <br />
+        . <br />
+        . <br />
+
+Bond order file: only the upper triangular matrix needs to be stored
+
 Format:
-1   TIME: time step
-2   wbo(0,1)
-3   wbo(0,2)
-4   wbo(0,3)
-        .
-        . 
+
+1   TIME: time step <br />
+2   wbo(0,1) <br />
+3   wbo(0,2) <br />
+4   wbo(0,3) <br />
+        . <br />
+        . <br />
 
 To start the automated post-processing for your ab initio nanoreactor simulations you have to first create a NanoSim object:
 ```python
@@ -83,6 +87,11 @@ nanoNet.create_network(reactions_list)
 If you encounter any problems with the Draw module in RDKit try to add the following line to your script:
 ```python
 from rdkit.Chem.Draw import IPythonConsole
+```
+The scripts for generating a PyMOL movie from your trajectory and data frame are available only at GitHub as they require 
+PyMOL as an interpreter. A free version of PyMOL can be installed with:
+```shell
+$ apt-get install pymol
 ```
 
 ## Documentation:
