@@ -30,7 +30,7 @@ def str_atom(atom: int) -> str:
 
     Args:
         atom: atomic number
-    Return:
+    Returns:
         atom: element symbol
     '''
     global __elements__
@@ -43,7 +43,7 @@ def int_atom(atom: str) -> int:
 
     Args:
         atom: element symbol
-    Return:
+    Returns:
         atom: atomic number
     '''
     

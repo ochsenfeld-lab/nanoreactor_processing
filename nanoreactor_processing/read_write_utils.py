@@ -11,15 +11,14 @@ def read_traj_file(xyz_file: str) -> Tuple[list, list]:
     ''' Read trajectory file.
 
     Args:
-        xyz_file: path to trajectory file from nanoreactor simulation
-                  Format: 1 number of atoms
-                          2 TIME: time step
-                          3 elem x y z
-                          4 elem x y z
-                                .
-                                .
+        xyz_file: path to trajectory file from nanoreactor simulation\n
+                  Format: 1 number of atoms\n
+                          2 TIME: time step\n
+                          3 elem x y z\n
+                          4 elem x y z\n
+                                .\n
+                                .\n
     Returns:
-        natoms: number of atoms in the simulation
         atom_map: order of atomic symbols at each time step
         xyz_list: complete trajectory as list of lists
     '''
@@ -57,14 +56,14 @@ def read_bo_file(dat_file: str) -> list:
     ''' Read (Wiberg) bond order (wbo) file.
 
     Args:
-        dat_file: path to bond order file from nanoreactor simulation
-                  Format: 1 TIME: time step
-                          2 wbo(0,1
-                          3 wbo(0,2)
-                          4 wbo(0,3)
-                                .
-                                .
-                          only upper triangular (without diagonal elements because equal to 0) is stored to reduce file size
+        dat_file: path to bond order file from nanoreactor simulation\n
+                  Format: 1 TIME: time step\n
+                          2 wbo(0,1)\n
+                          3 wbo(0,2)\n
+                          4 wbo(0,3)\n
+                                .\n
+                                .\n
+                          only upper triangular (without diagonal elements because equal to 0) is stored to reduce file size\n
     Returns:
         bond_orders = upper half of the bond order matrix stored as list
     '''
@@ -88,22 +87,19 @@ def read_bo_file(dat_file: str) -> list:
     bo_file.close()
     return bond_orders
 
-def read_frag_file(dat_file: str) -> Tuple[list,list,list]:
+def read_frag_file(dat_file: str) -> list:
     ''' Read fragment file containing indices belonging to found molecules in each step.
 
     Args:
-        dat_file: filepath to file containing (on-the-fly) computed fragments stored as lists of atom indices (starting at 1)
-                  Format: 1  time step
-                          2 at_index1   at_index2
-                          3 at_index3   at_index4   at_index5
-                          4 at_index6
-                                .
-                                .
+        dat_file: filepath to file containing (on-the-fly) computed fragments stored as lists of atom indices (starting at 1)\n
+                  Format: 1  time step\n
+                          2 at_index1   at_index2\n
+                          3 at_index3   at_index4   at_index5\n
+                          4 at_index6\n
+                                .\n
+                                .\n
     Returns:
-        timesteps: list of stored time steps in fs
-        fragment = list of lists storing the fragment indices (starting with 1) found at each time step
-        atom_indices_frag = list of lists storing corresponding list of atom indices for each fragment at every time step
-        elem_frag = list of lists storing corresponding elements # do we need this? we have atom_map
+        atom_indices_frag: list of lists storing corresponding list of atom indices for each fragment at every time step
     '''
 
     atom_indices_frag = []
@@ -129,13 +125,13 @@ def write_frag_file(name: str, timestep: float, fragments: list):
     Args:
         timestep: time step in fs
         name: name of file to be written
-        fragments: found molecules as lists of atom indices
-                  Format: 1  time step
-                          2 at_index1   at_index2
-                          3 at_index3   at_index4   at_index5
-                          4 at_index6
-                                .
-                                .
+        fragments: found molecules as lists of atom indices\n
+                  Format: 1  time step\n
+                          2 at_index1   at_index2\n
+                          3 at_index3   at_index4   at_index5\n
+                          4 at_index6\n
+                                .\n
+                                .\n
     Returns:
         -
     '''
@@ -203,8 +199,8 @@ def read_reaction_list(json_file: str) -> list:
         json_file: JSON file path where the reaction list was been stored
 
     Returns:
-        reactions_list: list of reactions
-                        Format: [event #, [ts_r, ts_p], [smiles_r...], [smiles_p...]]
+        reactions_list: list of reactions\n
+                        Format: [event #, [ts_r, ts_p], [smiles_r...], [smiles_p...]]\n
     '''
     with open(json_file, "r") as fp:
         reactions_list = json.load(fp)

@@ -7,7 +7,7 @@ if sys.version_info < (3, 8):
 setup(
     name="nanoreactor_processing",
     packages=["nanoreactor_processing"],
-    version="1.0.0",
+    version="1.0.1",
     license="MIT",
     description="Automated evaluation of computational nanoreactor simulations",
     long_description=open("README.md").read(),
@@ -15,9 +15,10 @@ setup(
     author="Alexandra Stan",
     author_email="alexandra.stan@cup.uni-muenchen.de",
     url="https://github.com/ochsenfeld-lab/nanoreactor_processing",
-    download_url="https://github.com/ochsenfeld-lab/nanoreactor_processing/archive/refs/tags/v1.0.0.zip",
+    download_url="https://github.com/ochsenfeld-lab/nanoreactor_processing/archive/refs/heads/main.zip",
     keywords=[
         "computational chemistry",
+        "automated",
         "molecular dynamics",
         "chemical reactions",
         "ab initio nanoreactor",

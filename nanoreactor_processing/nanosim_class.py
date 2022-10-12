@@ -27,21 +27,23 @@ class NanoSim:
     and bond order files from ab initio nanoreactor simulations.
 
     Args:
-        traj_file: trajectory file path
-                   Format: 1 number of atoms
-                           2 TIME: time step
-                           3 elem x y z
-                           4 elem x y z
-                                 .
-                                 .
-        bond_order_file: Wiberg bond order file
-                         Format: 1 TIME: time step
-                                 2 wbo(0,1)
-                                 3 wbo(0,2)
-                                 4 wbo(0,3)
-                                     .
-                                     .
-                         only upper triangular (without diagonal elements because equal to 0) is stored to reduce file size
+        traj_file: trajectory file path\n
+                   Format: 1 number of atoms\n
+                           2 TIME: time step\n
+                           3 elem x y z\n
+                           4 elem x y z\n
+                                 .\n
+                                 .\n
+
+        bond_order_file: Wiberg bond order file\n
+                         Format: 1 TIME: time step\n
+                                 2 wbo(0,1)\n
+                                 3 wbo(0,2)\n
+                                 4 wbo(0,3)\n
+                                     .\n
+                                     .\n
+                         only upper triangular (without diagonal elements because equal to 0) is stored to reduce file size\n
+
         mols_file: atom indices fragment file (if it already exists to avoid unecessary computation)
         dt: MD time step
         read_rate: output rate used in the MD to allow reconstruction of the time scale during the post-processing

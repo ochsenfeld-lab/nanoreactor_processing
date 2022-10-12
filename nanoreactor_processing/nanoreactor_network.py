@@ -104,8 +104,8 @@ def construct_reactions_list(df: pd.DataFrame, start_ts_index: int = 19, period_
                         Per default this is set for the smooth step spherical constraint function at the end of the expansion period.
         period_ts_steps: step width to search for products, corresponds to period of the confinement function
     Returns:
-        reactions_list: list of reactions
-                Format: [event #, [ts_r, ts_p], [smiles_r...], [smiles_p...]]
+        reactions_list: list of reactions\n
+                Format: [event #, [ts_r, ts_p], [smiles_r...], [smiles_p...]]\n
     '''
 
     # ts # = 19 --> always look at steps at the end of the expansion (sin_cos: 19*50*0.5=475, at 500 fs the contraction starts)
@@ -173,9 +173,8 @@ class NanoNetwork(nx.DiGraph):
         ''' Construct network from already computed reaction list.
 
         Args:
-            reactions_list: list of reactions
-                    Format: [event #, [ts_r, ts_p], [smiles_r...], [smiles_p...]]
-
+            reactions_list: list of reactions\n
+                    Format: [event #, [ts_r, ts_p], [smiles_r...], [smiles_p...]]\n
         Returns:
             G: simulation graph (consecutive monomolecular transformations have been excluded)
         '''
