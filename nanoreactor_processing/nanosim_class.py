@@ -178,7 +178,7 @@ class NanoSim:
 
         return fragments
 
-    def calc_frag_lists(self):
+    def generate_frag_lists(self):
         ''' Compute fragments for all time steps and write file containing fragment information.
             This can also be done on-the-fly during the MD simulation.
 

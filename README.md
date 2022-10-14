@@ -66,7 +66,7 @@ nanoSim = NanoSim(path_to_traj, path_to_bo_file)
 
 # apply functions to your newly created object to generate fragments and compute SMILES:
 nanoSim.generate_frag_lists()
-nanoSim.generate_mols_SMILES
+nanoSim.generate_mols_smiles()
 ...
 ```
 If you have already generated the fragment file (mols file), then you can also include it as an argument to speed up the evaluation:
@@ -79,7 +79,7 @@ To generate the reaction network use the stored data frame:
 ```python
 ...
 df = read_write_utils.read_trafo_df(path_to_df)
-reactions_list = construct_reactions_list(df)
+reactions_list = nanoreactor_network.construct_reactions_list(df)
 nanoNet = NanoNetwork()
 nanoNet.create_network(reactions_list)
 ...
