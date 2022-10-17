@@ -3,11 +3,8 @@ import pandas as pd
 import numpy as np
 import ast
 
-import matplotlib.pyplot as plt
-from matplotlib import cm
 import seaborn as sns
 import networkx as nx
-from pyvis.network import Network
 
 import rdkit.Chem.Draw
 
@@ -119,6 +116,35 @@ def construct_reactions_list(df: pd.DataFrame, start_ts_index: int = 19, period_
     print(natoms)
 
     event_counter = 0
+   
+    # first event
+
+    indices_ts=[]
+    reactions_ts=[]
+    reactants_ts=[]
+    products_ts=[]
+
+    atom_list_sorted = []
+    print("Time Step: " + str(0) + " -> " + str(start_ts_index))
+    for atom_index in range(natoms):
+        if atom_index+1 not in atom_list_sorted:
+            try:
+                atom_list_sorted,atom_index_list,smiles_reaction = find_reactions(df, str(atom_index + 1), 0, start_ts_index)
+                set_reactants = set(smiles_reaction[0])
+                set_products = set(smiles_reaction[1])
+                if [set_reactants,set_products] not in reactions:
+                    event_counter += 1
+                    events.append(event_counter)
+                    time_steps.append([0, start_ts_index])
+                    reactions.append([set_reactants,set_products])
+                    atom_indices.append(atom_index_list)
+
+                    reactions_list.append(["Event " + str(event_counter), [0, start_ts_index], smiles_reaction[0], smiles_reaction[1]])
+                    print("# Event: " + str(event_counter))
+                    print(str(smiles_reaction[0]) + " -> " + str(smiles_reaction[1]))
+
+            except:
+                pass
 
     for ts in range(start_ts_index, len(df['Time step [fs]'])-period_ts_steps, period_ts_steps):
         indices_ts=[]
@@ -183,7 +209,7 @@ class NanoNetwork(nx.DiGraph):
         time = 0
         length = 0
         for elem in reactions_list:
-            if elem[1][0] > time:
+            if elem[1][0] >= time:
                 length += 1
                 time = elem[1][0]
 

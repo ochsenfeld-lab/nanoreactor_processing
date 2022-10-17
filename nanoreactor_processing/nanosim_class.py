@@ -417,9 +417,17 @@ class NanoSim:
             for i_frag, frag in enumerate(self.fragments[ts]):
                 frag_indices[ts].append(i_frag + 1)
 
+        str_fragments = []
+        for ts in range(len(self.fragments)):
+            str_fragments.append([])
+            for frag_index, frag in enumerate(self.fragments[ts]):
+                str_fragments[ts].append([])
+                for atom_index in frag:
+                    str_fragments[ts][frag_index].append(str(atom_index))
+
         # Fill in dataframe
         self.df['Time step [fs]'] = timesteps
-        self.df['# Atom in Fragment'] = self.fragments
+        self.df['# Atom in Fragment'] = str_fragments
         self.df['# Fragment'] = frag_indices
         self.df['Mols in Fragment'] = self.elem_fragments
         self.df['XYZ'] = xyz_divided

@@ -2,6 +2,8 @@ import sys
 import pandas as pd
 import numpy as np
 
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import networkx as nx
@@ -71,7 +73,7 @@ def generate_network_grid(nanoNet: NanoNetwork):
 
     u_list=[]
     for u in nanoNet.graph.nodes():
-        if len(nanoNet.graph.in_edges(u)) >= 1:
+        if len(nanoNet.graph.in_edges(u)) >= 1 or len(nanoNet.graph.out_edges(u)) >= 1:
             u_list.append(u)
 
     list_formulas=[]
