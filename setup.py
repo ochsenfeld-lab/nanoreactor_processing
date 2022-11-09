@@ -7,7 +7,7 @@ if sys.version_info < (3, 8):
 setup(
     name="nanoreactor_processing",
     packages=["nanoreactor_processing"],
-    version="1.0.1",
+    version="1.1.1",
     license="MIT",
     description="Automated evaluation of computational nanoreactor simulations",
     long_description=open("README.md").read(),

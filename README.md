@@ -103,7 +103,7 @@ $ pdoc3 --html nanoreactor_processing -o doc/
 
 ## References:
 This work:
-1.  A. Stan et al., J. Chem. Theory Comput., accepted (2022)
+1.  A. Stan et al., J. Chem. Theory Comput. (2022); https://doi.org/10.1021/acs.jctc.2c00754
 
 Other references:
 
