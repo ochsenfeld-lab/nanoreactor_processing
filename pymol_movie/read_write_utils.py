@@ -91,3 +91,19 @@ def read_trafo_df(df_file: str) -> pd.DataFrame:
     df['Molecular Formulas'] = new_molecular_formulas
     
     return df
+
+def split_traj(traj: str, folder: str='traj_files'):
+    traj = read_traj_file(traj)
+    lines_per_file = traj[0] + 2
+    smallfile = None
+    with open(sys.argv[1]) as bigfile:
+        for lineno, line in enumerate(bigfile):
+            if lineno % lines_per_file == 0:
+                if smallfile:
+                    smallfile.close()
+                small_filename = folder+'/small_traj_{}.xyz'.format(int(lineno/lines_per_file))
+                smallfile = open(small_filename, "w")
+            smallfile.write(line)
+        if smallfile:
+            smallfile.close()
+

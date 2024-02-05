@@ -18,7 +18,7 @@ import cairosvg
 from read_write_utils import *
 
 # Split trajectory files in N (# time steps) trajectory files
-def split_traj(traj_file: filepath):
+def split_traj(traj_file: str):
     ''' Split trajectory file into N (number of simulation steps) small trajectory files.
 
     Args:
@@ -27,7 +27,7 @@ def split_traj(traj_file: filepath):
         -
     '''
 
-    natoms = read_traj_file(traj_file)[1]
+    natoms = len(read_traj_file(traj_file)[0])
     lines_per_file = natoms + 2
     smallfile = None
     with open(traj_file) as bigfile:
@@ -42,7 +42,7 @@ def split_traj(traj_file: filepath):
             smallfile.close()
     return
 
-def add_transparent_image(background: filepath, foreground: filepath, x_offset=None: float, y_offset=None: float):
+def add_transparent_image(background: str, foreground: str, x_offset:float = None, y_offset:float = None):
     ''' Overlap two images. Foreground image should be transparent.
         Warning: this function modifies the background image!
 
@@ -91,7 +91,7 @@ def add_transparent_image(background: filepath, foreground: filepath, x_offset=N
     # overwrite the section of the background image that has been updated
     background[bg_y:bg_y + h, bg_x:bg_x + w] = composite
 
-def convertImage_transparent(path: filepath):
+def convertImage_transparent(path: str):
     ''' Make white background transparent.
 
     Args:
@@ -119,7 +119,7 @@ def convertImage_transparent(path: filepath):
     return
 
 # Video Generating function
-def generate_video():
+def generate_video(path: str):
     ''' Function to render the PyMol video.
 
     Args:
@@ -127,8 +127,8 @@ def generate_video():
     Returns:
         -
     '''        
-    os.chdir(os.getcwd() + "/movie/")
-    path = os.getcwd() + "/movie/"
+    #os.chdir(os.getcwd() + "/movie/")
+    #path = os.getcwd() + "/movie/"
         
     image_folder = '.' # make sure to use your folder
 

@@ -1,4 +1,4 @@
-from my_helpers import *
+import os
 from pymol.cgo import *
 import colorsys,sys,re
 from pymol import cmd
@@ -6,7 +6,6 @@ import pandas as pd
 import ast
 import colorsys
 import seaborn as sns
-import os
 import cv2
 from PIL import Image
 from utils import *
@@ -19,7 +18,7 @@ pymol.finish_launching()
 cmd.set("ray_trace_frames", 1)
 
 # Read in data frame and manipulate data
-df = read_trafo_df("dataframe_nanosim.csv")
+df = read_trafo_df(sys.argv[3])
 
 # Build dictionary of SMILES according to absolute occurence
 
@@ -47,7 +46,7 @@ for struc in smiles_prob_dict:
 
 # Color fragments
 
-for ts in range(0,len(df['Time step [fs]']),4):
+for ts in range(0,len(df['Time step [fs]']),500):
     cmd.load("traj_files/small_traj_" + str(ts) + ".xyz", "obj")
     
     obj = "obj"
