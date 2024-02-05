@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import rdkit
+from rdkit.Chem import rdmolops  
 from rdkit.Chem.rdMolDescriptors import CalcMolFormula
 from rdkit import Chem
 from rdkit import RDLogger
@@ -221,7 +222,7 @@ class NanoSim:
 
         return
 
-    def mol_from_graphs(self, node_list: list, adjacency_matrix: list) -> Chem.Mol():
+    def mol_from_graphs(self, node_list: list, adjacency_matrix: list, radicals: bool) -> Chem.Mol():
         ''' Compute RDKit mol object from atom number list and adjacency matrix (WBO matrix in this case).
 
         Args:
@@ -265,41 +266,55 @@ class NanoSim:
 
         # Convert RWMol to Mol object
         mol = mol.GetMol()
-        mol.UpdatePropertyCache(strict=False)
-        no_atoms_mol = mol.GetNumAtoms()
-        for at_index in range(no_atoms_mol):
-            at = mol.GetAtomWithIdx(at_index)
-            z_atom = at.GetAtomicNum()
-            # H atoms
-            if at.GetAtomicNum()==1 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
-                at.SetFormalCharge(+1)
-            # C atoms
-            if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
-                at.SetFormalCharge(-4)
-            if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
-                at.SetFormalCharge(-3)
-            if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==2:
-                at.SetFormalCharge(-2)
-            if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==3:
-                at.SetFormalCharge(-1)
-            if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==5:
-                at.SetFormalCharge(+1)
-            # N atoms
-            if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
-                at.SetFormalCharge(-3)
-            if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
-                at.SetFormalCharge(-2)
-            if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==2:
-                at.SetFormalCharge(-1)
-            if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==4:
-                at.SetFormalCharge(+1)
-            # O atoms
-            if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
-                at.SetFormalCharge(-2)
-            if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
-                at.SetFormalCharge(-1)
-            if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==3:
-                at.SetFormalCharge(+1)
+        if radicals:
+            for atom in mol.GetAtoms():
+                atom.SetNoImplicit(True)
+            rdmolops.AssignRadicals(mol)
+        else:
+            mol.UpdatePropertyCache(strict=False)
+            no_atoms_mol = mol.GetNumAtoms()
+            for at_index in range(no_atoms_mol):
+                at = mol.GetAtomWithIdx(at_index)
+                z_atom = at.GetAtomicNum()
+                # H atoms
+                if at.GetAtomicNum()==1 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(+1)
+                # C atoms
+                if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(-4)
+                if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
+                    at.SetFormalCharge(-3)
+                if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==2:
+                    at.SetFormalCharge(-2)
+                if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==3:
+                    at.SetFormalCharge(-1)
+                if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==5:
+                    at.SetFormalCharge(+1)
+                # N atoms
+                if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(-3)
+                if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
+                    at.SetFormalCharge(-2)
+                if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==2:
+                    at.SetFormalCharge(-1)
+                if at.GetAtomicNum()==7 and at.GetFormalCharge()==0 and at.GetExplicitValence()==4:
+                    at.SetFormalCharge(+1)
+                # O atoms
+                if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(-2)
+                if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
+                    at.SetFormalCharge(-1)
+                if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==3:
+                    at.SetFormalCharge(+1)
+                # S atoms                                                                                                                                    
+                if at.GetAtomicNum()==16 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:                                                    
+                    at.SetFormalCharge(-2)                                                                                                               
+                if at.GetAtomicNum()==16 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:  
+                    at.SetFormalCharge(-1)                                                                                                                
+                if at.GetAtomicNum()==16 and at.GetFormalCharge()==0 and at.GetExplicitValence()==3:
+                    at.SetFormalCharge(+1)                                                                                                                
+                if at.GetAtomicNum()==16 and at.GetFormalCharge()==0 and at.GetExplicitValence()==5:                                                  
+                    at.SetFormalCharge(+1)                                                                                                                   
 
         # Recalculate valences and sanitize mol
         mol.UpdatePropertyCache(strict=False)
@@ -309,7 +324,7 @@ class NanoSim:
                         catchErrors=True)
         return mol
 
-    def generate_mols_smiles(self):
+    def generate_mols_smiles(self, radicals: bool = False):
         ''' Compute SMILES and corresponding molecular formulas from lists of fragments and bond order matrix.
 
         Args:
@@ -366,7 +381,7 @@ class NanoSim:
 
                 try:
                     # get mol and smiles
-                    mol = self.mol_from_graphs(atoms, bond_order_matrix_fragment)
+                    mol = self.mol_from_graphs(atoms, bond_order_matrix_fragment, radicals)
                     smile = Chem.MolToSmiles(mol)
                     # transform smiles to mol again and back for uniformization and avoid adjustHs
                     mol = Chem.MolFromSmiles(smile,sanitize=False)

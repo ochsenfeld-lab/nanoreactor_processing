@@ -173,6 +173,7 @@ def construct_reactions_list(df: pd.DataFrame, start_ts_index: int = 19, period_
 
                 except:
                     pass
+    print("Number of events found: %3i" % (event_counter))
 
     with open("reactions_list.json", "w") as fp:
         json.dump(reactions_list, fp)

@@ -7,9 +7,9 @@ if sys.version_info < (3, 8):
 setup(
     name="nanoreactor_processing",
     packages=["nanoreactor_processing"],
-    version="1.1.1",
+    version="2.0.0",
     license="MIT",
-    description="Automated evaluation of computational nanoreactor simulations",
+    description="Automated evaluation of computational reactor simulations",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Alexandra Stan",
@@ -22,7 +22,8 @@ setup(
         "molecular dynamics",
         "chemical reactions",
         "ab initio nanoreactor",
-	"rdkit"
+        "hyperreactor",
+	    "rdkit"
     ],
     install_requires=[
         "numpy>=1.23.1",

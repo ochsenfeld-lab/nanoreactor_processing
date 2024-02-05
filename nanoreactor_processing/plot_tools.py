@@ -81,7 +81,6 @@ def generate_network_grid(nanoNet: NanoNetwork):
 
     for i in u_list:
         if nanoNet.node_labels[i] != "Revise structure":
-            print(str(i))
 
             mol = Chem.MolFromSmiles(nanoNet.node_labels[i], sanitize=False)
             Chem.SanitizeMol(mol,Chem.SanitizeFlags.SANITIZE_FINDRADICALS|Chem.SanitizeFlags.SANITIZE_KEKULIZE|
