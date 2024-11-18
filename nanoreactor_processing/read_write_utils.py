@@ -237,10 +237,7 @@ def get_reaction_traj(traj_file: str, sim_df_file: str, reactions_list_file: str
     
 
     # get XYZ between the time steps and write file
-    if reaction_traj == None:
-        f = open(reaction_traj + "_" + str(event_no[0]) + "_" + str(event_no[-1]),"w")
-    else:
-        f = open(reaction_traj + "_" + str(event_no[0]) "_" + str(event_no[-1]),"a")
+    f = open(reaction_traj + "_" + str(event_no[0]) "_" + str(event_no[-1]), "a+")
     
     if not all_steps:
         for ts in [t_start, t_end]:
