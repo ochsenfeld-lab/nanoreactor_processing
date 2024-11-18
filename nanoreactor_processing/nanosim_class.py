@@ -130,7 +130,7 @@ class NanoSim:
                     fragments = new_fragments
 
         for atom1 in range(1,natoms+1):
-            atom1_type = self.atom_map[atom1-1]
+            atom1_type = self.atom_map[atom1-1].capitalize()
 
             distance_array = np.empty(natoms)
             distance_array[:] = np.NaN
@@ -147,7 +147,7 @@ class NanoSim:
                 continue
 
             for atom2 in range(1, natoms+1):
-                atom2_type = self.atom_map[atom2-1]
+                atom2_type = self.atom_map[atom2-1].capitalize()
                 bool_check_atom2 = any(atom2 in sublist for sublist in fragments)
                 if atom1==atom2:
                     continue
@@ -157,15 +157,18 @@ class NanoSim:
                     else:
                         fragments.append([atom2])
                         continue
+                
+                if np.isnan(__std_bond_lengths__[atom1_type][atom2_type]):
+                    pass
+                else:
+                    coord_atom1 = np.array(self.traj[ts][atom1-1])
+                    coord_atom2 = np.array(self.traj[ts][atom2-1])
+                    distance = np.linalg.norm(coord_atom1-coord_atom2)
 
-                coord_atom1 = np.array(self.traj[ts][atom1-1])
-                coord_atom2 = np.array(self.traj[ts][atom2-1])
-                distance = np.linalg.norm(coord_atom1-coord_atom2)
+                    distance_array[atom2-1] = distance
+                    distance_array[atom1-1] = np.NaN
 
-                distance_array[atom2-1] = distance
-                distance_array[atom1-1] = np.NaN
-
-                sd_array[atom2-1] = np.sqrt(pow(distance_array[atom2-1] - __std_bond_lengths__[atom1_type][atom2_type],2))
+                    sd_array[atom2-1] = np.sqrt(pow(distance_array[atom2-1] - __std_bond_lengths__[atom1_type][atom2_type],2))
 
             atom_partner = np.nanargmin(sd_array) + 1
 
