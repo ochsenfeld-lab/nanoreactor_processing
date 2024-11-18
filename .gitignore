@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+EVAL/
+EVAL_5000/
+test_samples/
+
+.vscode/

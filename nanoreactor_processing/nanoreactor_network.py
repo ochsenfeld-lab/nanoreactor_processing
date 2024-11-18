@@ -1,12 +1,7 @@
-import sys
 import pandas as pd
-import numpy as np
-import ast
 
 import seaborn as sns
 import networkx as nx
-
-import rdkit.Chem.Draw
 
 from .utils import *
 from .read_write_utils import *
@@ -139,7 +134,7 @@ def construct_reactions_list(df: pd.DataFrame, start_ts_index: int = 19, period_
                     reactions.append([set_reactants,set_products])
                     atom_indices.append(atom_index_list)
 
-                    reactions_list.append(["Event " + str(event_counter), [0, start_ts_index], smiles_reaction[0], smiles_reaction[1]])
+                    reactions_list.append(["Event " + str(event_counter), [0, start_ts_index], smiles_reaction[0], smiles_reaction[1], atom_list_sorted])
                     print("# Event: " + str(event_counter))
                     print(str(smiles_reaction[0]) + " -> " + str(smiles_reaction[1]))
 
@@ -167,7 +162,7 @@ def construct_reactions_list(df: pd.DataFrame, start_ts_index: int = 19, period_
                         reactions.append([set_reactants,set_products])
                         atom_indices.append(atom_index_list)
 
-                        reactions_list.append(["Event " + str(event_counter), [ts, ts + period_ts_steps], smiles_reaction[0], smiles_reaction[1]])
+                        reactions_list.append(["Event " + str(event_counter), [ts, ts + period_ts_steps], smiles_reaction[0], smiles_reaction[1], atom_list_sorted])
                         print("# Event: " + str(event_counter))
                         print(str(smiles_reaction[0]) + " -> " + str(smiles_reaction[1]))
 

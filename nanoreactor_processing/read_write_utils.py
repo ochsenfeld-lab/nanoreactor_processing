@@ -1,5 +1,3 @@
-import sys
-import numpy as np
 import pandas as pd
 import ast
 import json
@@ -206,3 +204,62 @@ def read_reaction_list(json_file: str) -> list:
         reactions_list = json.load(fp)
 
     return reactions_list
+
+def get_reaction_traj(traj_file: str, sim_df_file: str, reactions_list_file: str, event_no: list, reaction_traj: str = "rct_traj.xyz", all_steps: bool = False):
+    
+    sim_df = read_trafo_df(sim_df_file)
+    atom_map, xyz = read_traj_file(traj_file)
+    reactions_list = read_reaction_list(reactions_list_file)
+    
+    # first, get desired reaction(s) and time steps
+    timesteps = []
+    reactants = []
+    products = []
+    atom_indices = []
+    
+    for event in event_no:
+        for ts in reactions_list[event - 1][1]:
+            if ts not in timesteps:
+                timesteps.append(ts)
+                
+        for react in reactions_list[event - 1][2]:
+            if react not in reactants:
+                reactants.append(react)
+                
+        for prod in reactions_list[event - 1][3]:
+            if prod not in products:
+                products.append(prod)
+                
+        atom_indices.extend(reactions_list[event-1][4])
+    
+    t_start = min(timesteps)
+    t_end = max(timesteps)
+    
+
+    # get XYZ between the time steps and write file
+    if reaction_traj == None:
+        f = open(reaction_traj + "_" + str(event_no[0]) + "_" + str(event_no[-1]),"w")
+    else:
+        f = open(reaction_traj + "_" + str(event_no[0]) "_" + str(event_no[-1]),"a")
+    
+    if not all_steps:
+        for ts in [t_start, t_end]:
+            string = str("%i\nTIME: %14.7f\n") % (len(atom_indices),sim_df['Time step [fs]'][ts])
+            f.write(string)
+            for i in atom_indices:
+                i -= 1
+                string = str("%s %20.10e %20.10e %20.10e\n") % (atom_map[i],xyz[ts][i][0],xyz[ts][i][1],xyz[ts][i][2])
+                f.write(string)
+    else:       
+        # This variant is for printing all steps in the trajectory
+        for ts in range(min(timesteps),max(timesteps)):
+            string = str("%i\nTIME: %14.7f\n") % (len(atom_indices),sim_df['Time step [fs]'][ts])
+            f.write(string)
+            for i in atom_indices:
+                i -= 1
+                string = str("%s %20.10e %20.10e %20.10e\n") % (atom_map[i],xyz[ts][i][0],xyz[ts][i][1],xyz[ts][i][2])
+                f.write(string)
+    
+    f.close()
+
+    return 

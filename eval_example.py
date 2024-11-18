@@ -1,5 +1,4 @@
 import sys
-import nanoreactor_processing
 from nanoreactor_processing import *
 from nanoreactor_processing import NanoSim
 from nanoreactor_processing import NanoNetwork
@@ -17,7 +16,7 @@ nanoSim = NanoSim(sys.argv[1], sys.argv[2])
 nanoSim.generate_frag_lists()
 
 # generate SMILES and fill in data frame
-nanoSim.generate_mols_smiles(radicals=True) # radicals=False is the default for multiplicity equal 1
+nanoSim.generate_mols_smiles() # radicals=False is the default for multiplicity equal 1
 nanoSim.generate_df()
 
 # plot mol grid and bar plot
