@@ -1,9 +1,6 @@
 import sys
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import cm
-import rdkit
 from rdkit.Chem import rdmolops  
 from rdkit.Chem.rdMolDescriptors import CalcMolFormula
 from rdkit import Chem
@@ -15,11 +12,15 @@ from .read_write_utils import *
 
 # dictionary for standard experimental bond lengths (in Angstrom) defined globally to be used in classes and functions
 global __std_bond_lengths__
-__std_bond_lengths__ = {'H': {'H': 0.741, 'C': 1.099, 'N': 1.012, 'O': 0.967, 'S': 1.345},
-                        'C': {'H': 1.099, 'C': 1.530, 'N': 1.484, 'O': 1.432, 'S': 1.809},
-                        'N': {'H': 1.012, 'C': 1.484, 'N': 1.425, 'O': 1.463, 'S': 1.710},
-                        'O': {'H': 0.967, 'C': 1.432, 'N': 1.463, 'O': 1.208, 'S': 1.432},
-                        'S': {'H': 1.345, 'C': 1.809, 'N': 1.710, 'O': 1.432, 'S': 2.048}}
+__std_bond_lengths__ = {'H':  {'H': 0.741, 'Li': 1.595, 'C': 1.120, 'N':  1.036, 'O':  0.970, 'F':  0.917, 'P': 1.422, 'S': 1.341},
+                        'Li': {'H': 1.595, 'Li': 2.673, 'C': np.NaN, 'N': np.NaN, 'O': 1.688, "F": 1.564, 'P': np.NaN, 'S': 2.150},
+                        'C':  {'H': 1.120, 'Li': np.NaN, 'C': 1.243, 'N': 1.172, 'O': 1.128, 'F': 1.276, 'P': 1.562, 'S': 1.535},
+                        'N':  {'H': 1.036, 'Li': np.NaN, 'C': 1.172, 'N': 1.098, 'O': 1.154, 'F': 1.317, 'P': 1.491, 'S': 1.497},
+                        'O':  {'H': 0.970, 'Li': 1.688, 'C': 1.128, 'N': 1.154, 'O': 1.208, 'F': 1.354, 'P': 1.476, 'S': 1.481},
+                        'F':  {'H': 0.917, 'Li': 1.564, 'C': 1.276, 'N': 1.317, 'O': 1.354, 'F': 1.412, 'P': 1.593, 'S': 1.599},
+                        'P':  {'H': 1.422, 'Li': np.NaN, 'C': 1.562, 'N': 1.491, 'O': 1.476, 'F': 1.593, 'P': 1.893, 'S': 1.900},
+                        'S':  {'H': 1.345, 'Li': 2.150,'C': 1.535, 'N': 1.497, 'O': 1.481, 'F': 1.599, 'P': 1.900, 'S': 1.889}
+                        }
 
 class NanoSim:
     ''' Class for Nanoreactor Simulation Results
@@ -279,6 +280,11 @@ class NanoSim:
                 # H atoms
                 if at.GetAtomicNum()==1 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
                     at.SetFormalCharge(+1)
+                # Li atoms
+                if at.GetAtomicNum()==3 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(+1)
+                if at.GetAtomicNum()==3 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
+                    at.SetFormalCharge(-1)
                 # C atoms
                 if at.GetAtomicNum()==6 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
                     at.SetFormalCharge(-4)
@@ -306,6 +312,22 @@ class NanoSim:
                     at.SetFormalCharge(-1)
                 if at.GetAtomicNum()==8 and at.GetFormalCharge()==0 and at.GetExplicitValence()==3:
                     at.SetFormalCharge(+1)
+                #F atoms
+                if at.GetAtomicNum()==9 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(-1)
+                if at.GetAtomicNum()==9 and at.GetFormalCharge()==0 and at.GetExplicitValence()==2:
+                    at.SetFormalCharge(+1)
+                # P atoms
+                if at.GetAtomicNum()==15 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:
+                    at.SetFormalCharge(-3)
+                if at.GetAtomicNum()==15 and at.GetFormalCharge()==0 and at.GetExplicitValence()==1:
+                    at.SetFormalCharge(-2)
+                if at.GetAtomicNum()==15 and at.GetFormalCharge()==0 and at.GetExplicitValence()==2:
+                    at.SetFormalCharge(-1)
+                if at.GetAtomicNum()==15 and at.GetFormalCharge()==0 and at.GetExplicitValence()==4:
+                    at.SetFormalCharge(+1)
+                if at.GetAtomicNum()==15 and at.GetFormalCharge()==0 and at.GetExplicitValence()==6:
+                    at.SetFormalCharge(-1)
                 # S atoms                                                                                                                                    
                 if at.GetAtomicNum()==16 and at.GetFormalCharge()==0 and at.GetExplicitValence()==0:                                                    
                     at.SetFormalCharge(-2)                                                                                                               

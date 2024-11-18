@@ -1,6 +1,4 @@
-import sys
 import pandas as pd
-import numpy as np
 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -11,12 +9,9 @@ from pyvis.network import Network
 
 from rdkit.Chem.rdMolDescriptors import CalcMolFormula
 from rdkit import Chem
-from rdkit.Chem import AllChem
-from rdkit.Chem import rdFMCS
-import rdkit.Chem.Draw
-from collections import defaultdict
 from rdkit import RDLogger
 RDLogger.DisableLog('rdApp.*')
+from rdkit.Chem.Draw import IPythonConsole
 
 from .nanoreactor_network import *
 
@@ -135,7 +130,7 @@ def generate_bar_plot(df: pd.DataFrame):
     sums = pd.DataFrame(sums, index=["sum"])
     df = pd.concat([df.loc[:],sums])
 
-    sorted_df = df.sort_values(df.last_valid_index(), axis=1, ascending = False)
+    sorted_df = df.sort_values(df.last_valid_index(), axis=1, ascending = False) # type: ignore
 
     f=sorted_df.loc["sum"]>10
     sorted_df = sorted_df[sorted_df.columns[f]]
