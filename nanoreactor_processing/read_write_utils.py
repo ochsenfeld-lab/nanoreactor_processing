@@ -205,7 +205,7 @@ def read_reaction_list(json_file: str) -> list:
 
     return reactions_list
 
-def get_reaction_traj(traj_file: str, sim_df_file: str, reactions_list_file: str, event_no: list, reaction_traj: str = "rct_traj.xyz", all_steps: bool = False):
+def get_reaction_traj(traj_file: str, sim_df_file: str, reactions_list_file: str, event_no: list, reaction_traj: str = "rct_traj", all_steps: bool = False):
     
     sim_df = read_trafo_df(sim_df_file)
     atom_map, xyz = read_traj_file(traj_file)
@@ -237,7 +237,7 @@ def get_reaction_traj(traj_file: str, sim_df_file: str, reactions_list_file: str
     
 
     # get XYZ between the time steps and write file
-    f = open(reaction_traj + "_" + str(event_no[0]) + "_" + str(event_no[-1]), "a+")
+    f = open(reaction_traj + "_" + str(event_no[0]) + "_" + str(event_no[-1]) + ".xyz", "a+")
     
     if not all_steps:
         for ts in [t_start, t_end]:
