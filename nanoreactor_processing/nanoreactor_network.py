@@ -228,7 +228,7 @@ class NanoNetwork(nx.DiGraph):
         # Make nodes list
         for i in range(len(reactions_list)):
             elem_length = len(reactions_list[i])
-            for elem_index in range(2,elem_length):
+            for elem_index in range(2,elem_length - 1):
                 for elem in reactions_list[i][elem_index]:
                     if elem not in nodes_list:
                         nodes_list.append(elem)
@@ -248,6 +248,7 @@ class NanoNetwork(nx.DiGraph):
                 for j in range(len(elem[3])): # product index
                     if elem[2][i] != elem[3][j]:
                         self.graph.add_edge(elem[2][i], elem[3][j], color=node_color_dict[elem[2][i]])
+
 
         n_seen=[]
         n_to_remove = []
@@ -281,4 +282,6 @@ class NanoNetwork(nx.DiGraph):
         self.edge_colors = [self.graph[u][v]['color'] for u,v in edges]
 
         return
+
+
 
