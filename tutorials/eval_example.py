@@ -6,6 +6,7 @@ from nanoreactor_processing import NanoNetwork
 # initialize NanoSim object
 
 # type 1 (w/o 'mols.dat' file)
+# input: first traj, then bond orders file
 nanoSim = NanoSim(sys.argv[1], sys.argv[2])
 
 # type 2
@@ -23,11 +24,9 @@ nanoSim.generate_df()
 plot_tools.generate_mol_grid(nanoSim.df)
 plot_tools.generate_bar_plot(nanoSim.df)
 
-# calc start_ts_index as (equil_time%period_time) / (dt * read_rate) + 475 fs (19th time step) (for the smooth-step periodical potential every 2 ps)                                                              
-# here 0 + 19     
-
 # make reactions list and network
-reactions_list = nanoreactor_network.construct_reactions_list(nanoSim.df, start_ts_index=19)
+# start at step 50 because the contraction starts at 125 fs (total period=500 fs) at we store every 5th step for 0.5 fs long steps
+reactions_list = nanoreactor_network.construct_reactions_list(nanoSim.df, start_ts_index=200, period_ts_steps=50)
 
 if reactions_list==[]:
     print('No events found!')
